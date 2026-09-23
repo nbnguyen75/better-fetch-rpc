@@ -3,6 +3,8 @@ import type { InferStandardOutput, StandardSchemaV1 } from './standard-schema.js
 
 import { createFetch } from '@better-fetch/fetch';
 
+import { isStandardSchema } from './standard-schema.js';
+
 type InferSchema<T> = T extends StandardSchemaV1 ? InferStandardOutput<T> : T;
 
 export type EndpointDef = {
@@ -106,6 +108,14 @@ const METHOD_KEY_MAP: Record<string, HttpMethod> = {
   $put: 'PUT',
 };
 
+const METHOD_TO_KEY: Record<HttpMethod, '$delete' | '$get' | '$patch' | '$post' | '$put'> = {
+  DELETE: '$delete',
+  GET: '$get',
+  PATCH: '$patch',
+  POST: '$post',
+  PUT: '$put',
+};
+
 export type InferRequestType<T extends (...args: Array<never>) => unknown> = Parameters<T>[0];
 
 export type InferResponseType<T extends (...args: Array<never>) => unknown> = Awaited<
@@ -116,7 +126,22 @@ type InferResponse<T extends EndpointDef> = InferSchema<T['response']>;
 
 export type EnsureRouter<T extends BaseRouter> = T;
 
-export type CreateRpcClientOption = Omit<CreateFetchOption, 'baseURL' | 'body'>;
+export type RouteSchemas = {
+  response?: StandardSchemaV1 | undefined;
+};
+
+export type RpcSchemas<Router extends BaseRouter> = {
+  [Path in keyof Router]?: {
+    [Method in keyof Router[Path]]?: RouteSchemas | undefined;
+  };
+};
+
+export type CreateRpcClientOption<Router extends BaseRouter = BaseRouter> = Omit<
+  CreateFetchOption,
+  'baseURL' | 'body'
+> & {
+  schemas?: RpcSchemas<Router> | undefined;
+};
 
 function createProxyClient(
   makeRequest: (method: HttpMethod, path: string, options?: RequestOptions) => unknown,
@@ -137,30 +162,42 @@ function createProxyClient(
 
 export function createRpcClient<Router extends BaseRouter, Error = unknown>(
   baseURL: undefined | string,
-  option: CreateRpcClientOption & { throw: true },
+  option: CreateRpcClientOption<Router> & { throw: true },
 ): ProxyTree<Router, true, Error>;
 
 export function createRpcClient<Router extends BaseRouter, Error = unknown>(
   baseURL?: string,
-  option?: CreateRpcClientOption,
+  option?: CreateRpcClientOption<Router>,
 ): ProxyTree<Router, false, Error>;
 
 export function createRpcClient<Router extends BaseRouter, Error = unknown>(
   baseURL?: string,
-  option: CreateRpcClientOption = {},
+  option: CreateRpcClientOption<Router> = {},
 ): ProxyTree<Router, boolean, Error> {
+  const { schemas, ...fetchOption } = option;
   const $fetchBase = createFetch({
     ...(baseURL ? { baseURL } : {}),
-    ...option,
+    ...fetchOption,
   });
 
+  // Widened for lookup: `schemas` is keyed by the router's literal paths,
+  // but `path` is only known as `string` at runtime.
+  const schemaIndex:
+    | Record<string, Record<string, RouteSchemas | undefined> | undefined>
+    | undefined = schemas;
+
   const makeRequest = (method: HttpMethod, path: string, options?: RequestOptions) => {
+    const responseSchema = schemaIndex?.[path]?.[METHOD_TO_KEY[method]]?.response;
     return $fetchBase(path, {
       headers: options?.headers,
       params: options?.params,
       query: options?.query,
       body: options?.body,
       method,
+      // better-fetch validates `output` natively and always throws a
+      // `ValidationError` on failure — in both `throw` modes. Routes without
+      // a runtime schema pass through untouched (inference-only).
+      ...(isStandardSchema(responseSchema) ? { output: responseSchema } : {}),
     });
   };
 

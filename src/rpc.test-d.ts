@@ -73,6 +73,15 @@ const throwingApi = createRpcClient<NotesFetchRouter, ApiErrorResponse>('http://
   throw: true,
 });
 
+// Runtime schemas mirror the router: same paths, same method keys. Routes
+// without an entry stay inference-only and pass through unvalidated.
+const validatedApi = createRpcClient<NotesFetchRouter, ApiErrorResponse>('http://localhost:3000', {
+  schemas: {
+    '/api/v1/notes/count': { $get: { response: countSchema } },
+    '/api/v1/notes/total': { $get: { response: totalSchema } },
+  },
+});
+
 export async function exerciseClient(): Promise<void> {
   // No required fields -> options optional.
   const list = await api.api.v1.notes.$get();
@@ -109,7 +118,7 @@ export async function exerciseClient(): Promise<void> {
   }
 
   // Same inference path through a different library (valibot here).
-  const totalResult = await api.api.v1.notes.total.$get();
+  const totalResult = await validatedApi.api.v1.notes.total.$get();
   if (!totalResult.error) {
     const total: number = totalResult.data.total;
     if (total < 0) throw new Error('negative total');
@@ -153,3 +162,10 @@ export const wrongQuery = () => api.api.v1.notes.$get({ query: { limit: 'ten' } 
 
 // @ts-expect-error - schema-validated query must match the schema output
 export const wrongSchemaQuery = () => api.api.v1.notes.search.$get({ query: { q: 42 } });
+
+export const wrongSchemaPath = createRpcClient<NotesFetchRouter>('http://localhost:3000', {
+  schemas: {
+    // @ts-expect-error - schemas must mirror declared router paths
+    '/api/v1/nope': { $get: { response: countSchema } },
+  },
+});

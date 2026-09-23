@@ -56,3 +56,11 @@ export type InferStandardInput<Schema extends StandardSchemaV1> = NonNullable<
 export type InferStandardOutput<Schema extends StandardSchemaV1> = NonNullable<
   Schema['~standard']['types']
 >['output'];
+
+export function isStandardSchema(value: unknown): value is StandardSchemaV1 {
+  if (typeof value !== 'object' || value === null || !('~standard' in value)) {
+    return false;
+  }
+  const standard = value['~standard'];
+  return typeof standard === 'object' && standard !== null;
+}

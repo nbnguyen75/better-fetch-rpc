@@ -37,6 +37,7 @@
     "lint:fix": "oxlint --fix",
     "format": "oxfmt --check",
     "format:fix": "oxfmt",
+    "test": "vitest run",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {},
@@ -51,6 +52,7 @@
     "tsdown": "^0.23.0",
     "typescript": "^5.9.3",
     "valibot": "^1.1.0",
+    "vitest": "^3.2.4",
     "zod": "^4.6.5"
   },
   "peerDependencies": {

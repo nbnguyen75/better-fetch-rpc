@@ -147,6 +147,50 @@ so any compliant library works — no hard dependency on a specific one:
 
 Plain TypeScript types work too — schemas are optional, not required.
 
+### Runtime response validation
+
+Types alone can't verify what the server actually sends. To validate responses
+at runtime, define routes as a const once — feeding both the router type and
+the runtime schemas — and pass it via the `schemas` option:
+
+```ts
+import { ValidationError, createRpcClient } from 'better-fetch-rpc';
+
+const routes = {
+  '/api/v1/users/:id': {
+    $get: { response: userSchema },
+  },
+} as const;
+
+type Router = EnsureRouter<typeof routes>;
+
+const api = createRpcClient<Router>('https://api.example.com', { schemas: routes });
+
+try {
+  const { data, error } = await api.api.v1.users[':id'].$get({ params: { id: '123' } });
+  if (error) {
+    console.error('Request failed:', error);
+  } else {
+    console.log(data.name); // validated: guaranteed to match userSchema
+  }
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.error('Server broke the contract:', error.issues);
+  }
+  throw error;
+}
+```
+
+Rules:
+
+- Only routes with a runtime schema are validated; everything else passes
+  through untouched (inference-only, zero cost).
+- Validation failures **always throw** `ValidationError` (re-exported for
+  convenience) — in both `throw: true` and default modes, just like network
+  errors. The `{ data, error }` channel is reserved for server responses.
+- Schemas declared as bare types (no runtime instance) are inference-only;
+  only `typeof mySchema` entries paired with `schemas` can be validated.
+
 _For more examples and the full API reference, please refer to the [Documentation](https://github.com/nbnguyen75/better-fetch-rpc)._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -156,9 +200,9 @@ _For more examples and the full API reference, please refer to the [Documentatio
 ## Roadmap
 
 - [x] Core RPC client (GET/POST/PUT/PATCH/DELETE)
+- [x] Opt-in Standard Schema runtime response validation
 - [ ] Request/response interceptors
 - [ ] Built-in retry & timeout handling
-- [ ] Opt-in Standard Schema runtime response validation
 
 See the [open issues](https://github.com/nbnguyen75/better-fetch-rpc/issues) for a full list of proposed features and known issues.
 
