@@ -4,7 +4,7 @@ import http from 'node:http';
 
 import * as v from 'valibot';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 import { ValidationError } from '@better-fetch/fetch';
 
