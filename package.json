@@ -1,0 +1,47 @@
+{
+	"name": "better-fetch-rpc",
+	"version": "0.1.0",
+	"author": "",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nbnguyen75/better-fetch-rpc.git"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^3.0.3",
+		"@types/bun": "^1.4.2",
+		"@types/node": "^26.6.2",
+		"oxfmt": "^0.70.0",
+		"oxlint": "^1.85.0",
+		"tsdown": "^0.23.0"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"description": "",
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.5.1",
+			"onFail": "download"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [],
+	"license": "MIT",
+	"packageManager": "pnpm@12.5.1",
+	"scripts": {
+		"format": "oxfmt --check",
+		"format:fix": "oxfmt"
+	},
+	"sideEffects": false,
+	"type": "module",
+	"peerDependencies": {
+		"better-fetch": "^1.0.0"
+	}
+}

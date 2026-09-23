@@ -1,0 +1,76 @@
+# Dependencies
+node_modules/
+/jspm_packages/
+/.npm
+/.pnp
+.pnp.js
+
+# Bun specific
+bun.lockb
+.bun/
+*.bun-build
+
+# Build and Outputs
+.output
+.vercel
+.netlify
+.wrangler
+dist
+build
+.output
+.svelte-kit
+out
+
+# Vite and Test specific
+/dist/
+/.vite/
+coverage/
+html/
+.vitest
+
+# Logs
+=== logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (Next.js / Node.js)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime/Cache Files
+.eslintcache
+.cache
+.parcel-cache
+.turbo
+.node_repl_history
+
+# Environment Variables & Secrets (Keep sensitive data safe)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env.local
+.env*
+!.env.example
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs and Editors
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
