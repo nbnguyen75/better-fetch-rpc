@@ -2,7 +2,16 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   plugins: ['eslint', 'typescript', 'unicorn', 'import', 'oxc', 'promise'],
-  ignorePatterns: ['dist/**', 'coverage/**', 'node_modules/**', 'bun.lock', 'pnpm-lock.yaml'],
+  ignorePatterns: [
+    'dist/**',
+    'coverage/**',
+    'node_modules/**',
+    'bun.lock',
+    'pnpm-lock.yaml',
+    '.agents/**',
+    '.claude/**',
+    'skills-lock.json',
+  ],
   options: {
     typeAware: true,
   },

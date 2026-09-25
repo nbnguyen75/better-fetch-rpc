@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "better-writing": {
+      "source": "forjd/better-writing",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "1cb46e54a95a12182ac2fafbd97baea9ebf66ec2556bd076414aef7f954d0025"
+    },
+    "code-review-and-quality": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/code-review-and-quality/SKILL.md",
+      "computedHash": "5c92fbf3f468bc20b51db0f126b2ed0d00a2c934c9d4ac7d7485c0c8a712b96d"
+    },
+    "codebase-design": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/codebase-design/SKILL.md",
+      "computedHash": "5f0f9a507f74a9c709bd45f9034f64a46bc10395270bcc564b15dbf428bddf35"
+    },
+    "diagnosing-bugs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/diagnosing-bugs/SKILL.md",
+      "computedHash": "bca66b7141da7d225b7dfd1abf6f2bee657b8044d3897604055e760749c71724"
+    },
+    "improve": {
+      "source": "shadcn/improve",
+      "sourceType": "github",
+      "skillPath": "skills/improve/SKILL.md",
+      "computedHash": "e671f31b276c4d91dc5a829e36561a6b5e8cb0090f665c272fff4a6e091b8884"
+    },
+    "modern-javascript-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md",
+      "computedHash": "b39a6d074904376b61daf71beb0eef48a92d55c33316141e4fab75801a3607be"
+    },
+    "refactor": {
+      "source": "./.agents/skills/refactor",
+      "sourceType": "local",
+      "skillPath": "SKILL.md",
+      "computedHash": "2cdb37d5ab1933f6a650b2fa7c553a61b16ebafe16cec0e9c6ae13ba26b45190"
+    },
+    "research": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/research/SKILL.md",
+      "computedHash": "524b404b1ca373a8b00f63a64667ec4b0a61c3c9cf4e8f246e639be859bb6979"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+      "computedHash": "696b98d5a6f90a7d0f0797c6e24590deda11c42dab620c3f93c1d2befccbd7bb"
+    },
+    "writing-for-agents": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/writing-for-agents/SKILL.md",
+      "computedHash": "1c0c4ebf2d221917591144f0ced4fe46dae13301cb3d6d93fc88ecf0dda6aed2"
+    }
+  }
+}

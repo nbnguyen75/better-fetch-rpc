@@ -1,7 +1,16 @@
 import { defineConfig } from 'oxfmt';
 
 export default defineConfig({
-  ignorePatterns: ['dist/**', 'coverage/**', 'bun.lock', 'pnpm-lock.yaml', 'LICENSE'],
+  ignorePatterns: [
+    'dist/**',
+    'coverage/**',
+    'bun.lock',
+    'pnpm-lock.yaml',
+    'LICENSE',
+    '.agents/**',
+    '.claude/**',
+    'skills-lock.json',
+  ],
   trailingComma: 'all',
   singleQuote: true,
   tabWidth: 2,

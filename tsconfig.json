@@ -26,7 +26,15 @@
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*", "oxfmt.config.ts", "oxlint.config.ts", "tsdown.config.ts"]
+  "include": [
+    "src/**/*",
+    "oxfmt.config.ts",
+    "oxlint.config.ts",
+    "tsdown.config.ts"
+  ]
 }
