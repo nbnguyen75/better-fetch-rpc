@@ -25,4 +25,5 @@ jobs:
           [ "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}" ] \
             || (echo "Tag and package.json version differ" && exit 1)
 
-      - run: npm publish --access public
+      - name: Publish to Staging Queue
+        run: npm stage publish --tag latest --access public
