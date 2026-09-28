@@ -31,10 +31,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "oxfmt.config.ts",
-    "oxlint.config.ts",
-    "tsdown.config.ts"
-  ]
+  "include": ["src/**/*", "oxfmt.config.ts", "oxlint.config.ts", "tsdown.config.ts"]
 }

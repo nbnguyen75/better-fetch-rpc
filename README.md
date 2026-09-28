@@ -55,6 +55,7 @@
         <li><a href="#client-options">Client options</a></li>
         <li><a href="#schema-compatibility">Schema compatibility</a></li>
         <li><a href="#runtime-response-validation">Runtime response validation</a></li>
+        <li><a href="#tanstack-query">TanStack Query</a></li>
       </ul>
     </li>
     <li><a href="#api-reference">API Reference</a></li>
@@ -294,6 +295,50 @@ Rules:
 - Schemas declared as bare types (no runtime instance) are inference-only;
   only `typeof mySchema` entries paired with `schemas` can be validated.
 
+### TanStack Query
+
+The `throw: true` client pairs naturally with TanStack Query v5: transport and
+validation failures reject, so they land in Query's `error` / `onError`
+channel with no envelope unwrapping. Define `queryOptions` factories once,
+then consume them in hooks:
+
+```ts
+import { queryOptions } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+const throwing = createRpcClient<Router>('https://api.example.com', { throw: true });
+
+export const noteKeys = {
+  all: ['notes'] as const,
+  list: (params?: { limit?: number }) => [...noteKeys.all, 'list', params] as const,
+  detail: (id: string) => [...noteKeys.all, 'detail', id] as const,
+};
+
+export function noteDetailQueryOptions(id: string) {
+  return queryOptions({
+    queryFn: () => throwing.api.v1.notes[':id'].$get({ params: { id } }),
+    queryKey: noteKeys.detail(id),
+  });
+}
+
+export function useNote(id: string) {
+  return useQuery(noteDetailQueryOptions(id));
+}
+
+export function useCreateNote() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (title: string) => throwing.api.v1.notes.$post({ body: { title } }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: noteKeys.all });
+    },
+  });
+}
+```
+
+`ValidationError` from a validated route surfaces the same way — as the
+query/mutation `error` — because validation failures always throw.
+
 _For more examples and the full API reference, please refer to the [Documentation](https://github.com/nbnguyen75/better-fetch-rpc)._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -359,6 +404,27 @@ If you have a suggestion, fork the repo and open a pull request, or open an issu
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+### Changesets
+
+Every PR that should trigger a release must include a changeset: run
+`pnpm changeset` and commit the generated file. The release workflow turns
+them into version bumps and `CHANGELOG.md` entries automatically.
+
+### Package managers
+
+Use **pnpm** or **bun** — never npm. After any dependency change, run both
+`pnpm install` and `bun install` so `pnpm-lock.yaml` and `bun.lock` stay in
+sync. Never mix managers in one `node_modules`: switching means deleting
+`node_modules` and reinstalling. CI runs pnpm only, and `pnpm test` is the
+source of truth (`bun run test` executes vitest under Bun, which is
+unsupported — use Bun for `bun dist/index.js` smoke runs instead).
+
+### Emergency local publish
+
+Releases normally ship from CI via OIDC trusted publishing. If CI is
+unavailable, `pnpm publish` works locally with an automation token, but the
+release will lack a provenance attestation — prefer CI.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
