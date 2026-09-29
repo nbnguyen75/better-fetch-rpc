@@ -1,4 +1,4 @@
-import type { CreateFetchOption } from '@better-fetch/fetch';
+import type { BetterFetchOption, CreateFetchOption } from '@better-fetch/fetch';
 import type { InferStandardOutput, StandardSchemaV1 } from './standard-schema.js';
 
 import { createFetch } from '@better-fetch/fetch';
@@ -33,12 +33,17 @@ type InferRequest<T extends EndpointDef> = {
   ]: InferSchema<T[K]>;
 };
 
+export type ExtraRequestOptions = Omit<
+  BetterFetchOption,
+  'body' | 'query' | 'params' | 'headers' | 'method' | 'output' | 'errorSchema' | 'baseURL'
+>;
+
 type RequestArgs<Endpoint extends EndpointDef> =
   Record<string, never> extends InferRequest<Endpoint>
-    ? [options?: InferRequest<Endpoint>]
-    : [options: InferRequest<Endpoint>];
+    ? [options?: InferRequest<Endpoint> & ExtraRequestOptions]
+    : [options: InferRequest<Endpoint> & ExtraRequestOptions];
 
-export type RequestOptions = {
+export type RequestOptions = ExtraRequestOptions & {
   headers?: Record<string, string | undefined>;
   params?: Record<string, unknown>;
   query?: Record<string, unknown>;

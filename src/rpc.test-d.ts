@@ -135,6 +135,16 @@ export async function exerciseClient(): Promise<void> {
   const unwrapped = await throwingApi.api.v1.notes[':id'].$get({ params: { id: '1' } });
   const unwrappedTitle: string = unwrapped.data.title;
   if (unwrappedTitle === '') throw new Error('empty title');
+
+  // Request options like timeout, retry, and interceptors are allowed.
+  await api.api.v1.notes.$get({
+    query: { limit: 10 },
+    timeout: 5000,
+    retry: { type: 'linear', attempts: 3, delay: 1000 },
+    onRequest: (_ctx: unknown) => {
+      // some interceptor logic
+    },
+  });
 }
 
 export type GetNotesRequest = InferRequestType<typeof api.api.v1.notes.$get>;

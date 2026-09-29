@@ -2,13 +2,18 @@
 
 <!-- PROJECT SHIELDS -->
 
-[![NPM Version](https://img.shields.io/npm/v/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/better-fetch-rpc)
-[![NPM Downloads](https://img.shields.io/npm/dm/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/better-fetch-rpc)
+<div align="center">
+
+[![NPM Version](https://img.shields.io/npm/v/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
+[![NPM Downloads](https://img.shields.io/npm/dm/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
+
 [![Contributors](https://img.shields.io/github/contributors/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/network/members)
 [![Stargazers](https://img.shields.io/github/stars/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/stargazers)
 [![Issues](https://img.shields.io/github/issues/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/issues)
 [![MIT License](https://img.shields.io/github/license/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/blob/main/LICENSE)
+
+</div>
 
 <!-- PROJECT LOGO -->
 <br />

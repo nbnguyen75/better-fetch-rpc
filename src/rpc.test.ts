@@ -17,7 +17,7 @@ const statsSchema = v.object({ total: v.number() });
 // (`typeof routes`) and the runtime schemas passed to the client.
 const routes = {
   '/api/v1/users/:id': {
-    $get: { response: userSchema },
+    $get: { response: userSchema, params: z.object({ id: z.string() }) },
   },
   '/api/v1/stats': {
     $get: { response: statsSchema },
