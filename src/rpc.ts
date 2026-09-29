@@ -193,11 +193,16 @@ export function createRpcClient<Router extends BaseRouter, Error = unknown>(
 
   const makeRequest = (method: HttpMethod, path: string, options?: RequestOptions) => {
     const responseSchema = schemaIndex?.[path]?.[METHOD_TO_KEY[method]]?.response;
+    
+    // Extract known RPC keys and keep the rest as extra options
+    const { headers, params, query, body, ...extraOptions } = options || {};
+    
     return $fetchBase(path, {
-      headers: options?.headers,
-      params: options?.params,
-      query: options?.query,
-      body: options?.body,
+      ...extraOptions,
+      headers,
+      params,
+      query,
+      body,
       method,
       // better-fetch validates `output` natively and always throws a
       // `ValidationError` on failure — in both `throw` modes. Routes without

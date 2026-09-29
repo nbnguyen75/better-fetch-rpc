@@ -109,7 +109,7 @@ git commit -m "feat: expose retry, timeout, and interceptor options in request t
 
 - Consumes: `RequestOptions` from Task 1
 
-- [ ] **Step 1: Write runtime tests**
+- [x] **Step 1: Write runtime tests**
 
 Add a test in `src/rpc.test.ts` using a mocked server/handler to assert that passing `timeout` or `onRequest` actually works.
 For example, an `onRequest` interceptor that modifies headers, or verifying that a retry occurs.
@@ -132,12 +132,12 @@ it('passes extra request options like interceptors down to better-fetch', async 
 });
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run: `pnpm run test`
 Expected: FAIL because the interceptor is not called.
 
-- [ ] **Step 3: Implement makeRequest merging**
+- [x] **Step 3: Implement makeRequest merging**
 
 Modify `makeRequest` inside `createRpcClient` in `src/rpc.ts`:
 
@@ -163,12 +163,12 @@ const makeRequest = (method: HttpMethod, path: string, options?: RequestOptions)
 };
 ```
 
-- [ ] **Step 4: Run tests to verify success**
+- [x] **Step 4: Run tests to verify success**
 
 Run: `pnpm run test`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/rpc.ts src/rpc.test.ts

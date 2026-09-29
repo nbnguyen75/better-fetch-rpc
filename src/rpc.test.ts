@@ -3,7 +3,7 @@ import type { EnsureRouter } from './index.js';
 import http from 'node:http';
 
 import * as v from 'valibot';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { z } from 'zod/v4';
 
 import { ValidationError } from '@better-fetch/fetch';
@@ -111,5 +111,16 @@ describe('runtime response validation', () => {
     } else {
       throw new Error('Expected a ValidationError');
     }
+  });
+});
+
+describe('extra request options', () => {
+  it('passes extra request options like interceptors down to better-fetch', async () => {
+    const onRequestSpy = vi.fn();
+    const api = createRpcClient<Router>(baseURL);
+    await api.api.v1.stats.$get({
+      onRequest: onRequestSpy,
+    });
+    expect(onRequestSpy).toHaveBeenCalled();
   });
 });
