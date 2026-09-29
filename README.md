@@ -241,6 +241,21 @@ const api = createRpcClient<Router>('https://api.example.com', {
 });
 ```
 
+### Per-request options
+
+You can also pass `@better-fetch/fetch` options like `timeout`, `retry`, and interceptors directly to any endpoint call. These merge with the client's default options:
+
+```ts
+const { data, error } = await api.api.v1.notes.$get({
+  query: { limit: 10 },
+  timeout: 5000, // abort after 5 seconds
+  retry: { type: 'linear', attempts: 3 }, // retry up to 3 times
+  onRequest(context) {
+    console.log('Sending request to', context.url);
+  },
+});
+```
+
 ### Schema compatibility
 
 Request/response types are inferred through [Standard Schema](https://standardschema.dev),
@@ -373,7 +388,8 @@ _For more examples and the full API reference, please refer to the [Documentatio
 | `RpcSchemas<R>`         | Runtime schemas mirror for the `schemas` option.                        |
 | `RouteSchemas`          | Per-endpoint schemas: `{ response?: StandardSchemaV1 }`.                |
 | `CreateRpcClientOption` | Client options (better-fetch options + `schemas`).                      |
-| `RequestOptions`        | Per-call options: `headers` / `params` / `query` / `body`.              |
+| `ExtraRequestOptions`   | Per-call better-fetch options minus RPC-owned keys (`body` / `query` / `params` / `headers` / `method` / `output` / `errorSchema` / `baseURL`). |
+| `RequestOptions`        | Per-call options: `headers` / `params` / `query` / `body` + any extra better-fetch option (`timeout`, `retry`, `hooks`, …). |
 | `HttpMethod`            | `'DELETE' \| 'PATCH' \| 'POST' \| 'GET' \| 'PUT'`.                      |
 | `InferRequestType<F>`   | Extracts an endpoint function's options type.                           |
 | `InferResponseType<F>`  | Extracts an endpoint function's resolved value type.                    |
@@ -389,8 +405,8 @@ _For more examples and the full API reference, please refer to the [Documentatio
 
 - [x] Core RPC client (GET/POST/PUT/PATCH/DELETE)
 - [x] Opt-in Standard Schema runtime response validation
-- [ ] Request/response interceptors
-- [ ] Built-in retry & timeout handling
+- [x] Request/response interceptors
+- [x] Built-in retry & timeout handling
 
 See the [open issues](https://github.com/nbnguyen75/better-fetch-rpc/issues) for a full list of proposed features and known issues.
 

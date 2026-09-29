@@ -3,6 +3,7 @@ export type {
   CreateRpcClientOption,
   EndpointDef,
   EnsureRouter,
+  ExtraRequestOptions,
   HttpMethod,
   InferRequestType,
   InferResponseType,
