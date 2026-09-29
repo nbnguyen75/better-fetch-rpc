@@ -1,6 +1,6 @@
 {
   "name": "@wynn-dev/better-fetch-rpc",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Type-safe RPC-style client built on @better-fetch/fetch — define routes once, call them like local functions.",
   "keywords": [
     "better-fetch",
