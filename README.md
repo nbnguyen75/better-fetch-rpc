@@ -4,8 +4,8 @@
 
 <div align="center">
 
-<!-- [![NPM Version](https://img.shields.io/npm/v/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
-[![NPM Downloads](https://img.shields.io/npm/dm/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc) -->
+<!-- [![NPM Version](https://img.shields.io/npm/v/@wynn-dev/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
+[![NPM Downloads](https://img.shields.io/npm/dm/@wynn-dev/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc) -->
 
 [![Contributors](https://img.shields.io/github/contributors/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/network/members)
@@ -18,10 +18,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">better-fetch-rpc</h3>
+  <h3 align="center">Better Fetch RPC</h3>
 
   <p align="center">
-    A type-safe, RPC-style wrapper around <code>fetch</code> — call your API like a local function, with full type inference.
+    A type-safe, RPC-style wrapper around <code>fetch</code> - call your API like a local function, with full type inference.
     <br />
     <a href="https://github.com/nbnguyen75/better-fetch-rpc"><strong>Explore the docs »</strong></a>
     <br />
@@ -75,7 +75,7 @@
 
 ## About The Project
 
-**better-fetch-rpc** is a type-safe RPC-style wrapper around `fetch`. Instead of hand-writing URL strings, headers, and response parsing for every request, you define your API routes once and call them like local functions — with types inferred end-to-end.
+**Better Fetch RPC** is a type-safe RPC-style wrapper around `fetch`. Instead of hand-writing URL strings, headers, and response parsing for every request, you define your API routes once and call them like local functions — with types inferred end-to-end.
 
 Schema types (zod, valibot, arktype, …) are understood through [Standard Schema](https://standardschema.dev) and can optionally validate responses at runtime. The package itself has zero runtime dependencies besides its `@better-fetch/fetch` peer.
 
@@ -100,11 +100,19 @@ Schema types (zod, valibot, arktype, …) are understood through [Standard Schem
 ### Installation
 
 ```sh
-npm install better-fetch-rpc
-# or
-pnpm add better-fetch-rpc
-# or
-yarn add better-fetch-rpc
+npm install @wynn-dev/better-fetch-rpc
+```
+
+```sh
+pnpm add @wynn-dev/better-fetch-rpc
+```
+
+```sh
+yarn add @wynn-dev/better-fetch-rpc
+```
+
+```sh
+bun add @wynn-dev/better-fetch-rpc
 ```
 
 `@better-fetch/fetch` is a peer dependency and is installed automatically by
@@ -127,7 +135,7 @@ and `response` — as plain TypeScript types or as schemas from any
 Standard Schema library:
 
 ```ts
-import type { EnsureRouter } from 'better-fetch-rpc';
+import type { EnsureRouter } from '@wynn-dev/better-fetch-rpc';
 
 import { z } from 'zod';
 
@@ -166,7 +174,7 @@ literal key and filled from `params` (which better-fetch also substitutes
 into the URL):
 
 ```ts
-import { createRpcClient } from 'better-fetch-rpc';
+import { createRpcClient } from '@wynn-dev/better-fetch-rpc';
 
 const api = createRpcClient<Router>('https://api.example.com');
 
@@ -216,7 +224,7 @@ if (error) {
 resolved value — handy for wrapping calls in your own functions:
 
 ```ts
-import type { InferRequestType, InferResponseType } from 'better-fetch-rpc';
+import type { InferRequestType, InferResponseType } from '@wynn-dev/better-fetch-rpc';
 
 type GetNotesRequest = InferRequestType<typeof api.api.v1.notes.$get>;
 type GetNotesResponse = InferResponseType<typeof api.api.v1.notes.$get>['data'];
@@ -276,7 +284,7 @@ the runtime schemas — and pass it via the `schemas` option:
 
 ```ts
 import { z } from 'zod';
-import { ValidationError, createRpcClient } from 'better-fetch-rpc';
+import { ValidationError, createRpcClient } from '@wynn-dev/better-fetch-rpc';
 
 const noteSchema = z.object({ id: z.string(), title: z.string() });
 
