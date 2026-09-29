@@ -193,10 +193,10 @@ export function createRpcClient<Router extends BaseRouter, Error = unknown>(
 
   const makeRequest = (method: HttpMethod, path: string, options?: RequestOptions) => {
     const responseSchema = schemaIndex?.[path]?.[METHOD_TO_KEY[method]]?.response;
-    
+
     // Extract known RPC keys and keep the rest as extra options
     const { headers, params, query, body, ...extraOptions } = options || {};
-    
+
     return $fetchBase(path, {
       ...extraOptions,
       headers,

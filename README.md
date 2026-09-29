@@ -4,8 +4,8 @@
 
 <div align="center">
 
-[![NPM Version](https://img.shields.io/npm/v/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
-[![NPM Downloads](https://img.shields.io/npm/dm/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
+<!-- [![NPM Version](https://img.shields.io/npm/v/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc)
+[![NPM Downloads](https://img.shields.io/npm/dm/better-fetch-rpc.svg?style=for-the-badge)](https://www.npmjs.com/package/@wynn-dev/better-fetch-rpc) -->
 
 [![Contributors](https://img.shields.io/github/contributors/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/nbnguyen75/better-fetch-rpc.svg?style=for-the-badge)](https://github.com/nbnguyen75/better-fetch-rpc/network/members)
@@ -377,25 +377,25 @@ _For more examples and the full API reference, please refer to the [Documentatio
 
 ### Types
 
-| Export                  | Description                                                             |
-| ----------------------- | ----------------------------------------------------------------------- |
-| `EnsureRouter<T>`       | Constrains a route map to the router shape.                             |
-| `BaseRouter`            | `Record<string, MethodMap>` — the base constraint for routers.          |
-| `EndpointDef`           | One endpoint: `headers` / `params` / `query` / `body` / `response`.     |
-| `MethodMap`             | `$get` / `$post` / `$put` / `$patch` / `$delete` endpoint map.          |
-| `ProxyTree<R, T, E>`    | The client type derived from a router.                                  |
-| `RpcResponse<D, E>`     | `{ data: D; error: null } \| { data: null; error: E }`.                 |
-| `RpcSchemas<R>`         | Runtime schemas mirror for the `schemas` option.                        |
-| `RouteSchemas`          | Per-endpoint schemas: `{ response?: StandardSchemaV1 }`.                |
-| `CreateRpcClientOption` | Client options (better-fetch options + `schemas`).                      |
+| Export                  | Description                                                                                                                                     |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EnsureRouter<T>`       | Constrains a route map to the router shape.                                                                                                     |
+| `BaseRouter`            | `Record<string, MethodMap>` — the base constraint for routers.                                                                                  |
+| `EndpointDef`           | One endpoint: `headers` / `params` / `query` / `body` / `response`.                                                                             |
+| `MethodMap`             | `$get` / `$post` / `$put` / `$patch` / `$delete` endpoint map.                                                                                  |
+| `ProxyTree<R, T, E>`    | The client type derived from a router.                                                                                                          |
+| `RpcResponse<D, E>`     | `{ data: D; error: null } \| { data: null; error: E }`.                                                                                         |
+| `RpcSchemas<R>`         | Runtime schemas mirror for the `schemas` option.                                                                                                |
+| `RouteSchemas`          | Per-endpoint schemas: `{ response?: StandardSchemaV1 }`.                                                                                        |
+| `CreateRpcClientOption` | Client options (better-fetch options + `schemas`).                                                                                              |
 | `ExtraRequestOptions`   | Per-call better-fetch options minus RPC-owned keys (`body` / `query` / `params` / `headers` / `method` / `output` / `errorSchema` / `baseURL`). |
-| `RequestOptions`        | Per-call options: `headers` / `params` / `query` / `body` + any extra better-fetch option (`timeout`, `retry`, `hooks`, …). |
-| `HttpMethod`            | `'DELETE' \| 'PATCH' \| 'POST' \| 'GET' \| 'PUT'`.                      |
-| `InferRequestType<F>`   | Extracts an endpoint function's options type.                           |
-| `InferResponseType<F>`  | Extracts an endpoint function's resolved value type.                    |
-| `StandardSchemaV1`      | Vendored Standard Schema interface (no dependency needed to reference). |
-| `InferStandardInput`    | Infer a schema's input type.                                            |
-| `InferStandardOutput`   | Infer a schema's output type.                                           |
+| `RequestOptions`        | Per-call options: `headers` / `params` / `query` / `body` + any extra better-fetch option (`timeout`, `retry`, `hooks`, …).                     |
+| `HttpMethod`            | `'DELETE' \| 'PATCH' \| 'POST' \| 'GET' \| 'PUT'`.                                                                                              |
+| `InferRequestType<F>`   | Extracts an endpoint function's options type.                                                                                                   |
+| `InferResponseType<F>`  | Extracts an endpoint function's resolved value type.                                                                                            |
+| `StandardSchemaV1`      | Vendored Standard Schema interface (no dependency needed to reference).                                                                         |
+| `InferStandardInput`    | Infer a schema's input type.                                                                                                                    |
+| `InferStandardOutput`   | Infer a schema's output type.                                                                                                                   |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
